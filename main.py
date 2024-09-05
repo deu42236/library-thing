@@ -10,11 +10,9 @@ if user == "admin":
         defs.addUser(input("Enter username: "), input("Enter password: "), None)
     elif action == "2": 
         print("not implemented yet")#remove user
-        defs.removeUser("test")
+        defs.removeUser(input("Enter username of the user: "))
 
 
-
-        
     elif action == "3":
         defs.addBook(input("Enter book name: "), input("Enter author: "), input("Enter ISBN: "), True)
     elif action == "4":

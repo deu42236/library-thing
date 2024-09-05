@@ -5,18 +5,21 @@ def addBook(name, author, ISBN, availability):
     with open('books.csv', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writeheader()
+
 #add users
 def addUser(usernameName, password, bookBorrowedISBN):
     with open('users.csv', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([usernameName, password, bookBorrowedISBN])
-#remove users
+
+#remove user
 def removeUser(username):
-    with open('users.csv', 'rb') as file:
+    with open('users.csv', 'r', newline='') as file:
+        rows = list(csv.reader(file))
+    rows = [row for row in rows if row[0] != username]
+    with open('users.csv', 'w', newline='') as file:
         writer = csv.writer(file)
-        for row in csv.reader(file):
-            if row[0] != username:
-                writer.writerow(row)
+        writer.writerows(rows)
 
 #search csv
 def searchCSV(filename, search):
@@ -25,7 +28,6 @@ def searchCSV(filename, search):
         for row in reader:
             if search in row:
                 return row
-
 
 
 #login
@@ -37,11 +39,18 @@ def login(inp1=input("Enter your username: ")):
             return "admin"
         elif searchCSV("users.csv", inp1)[1] == inp2:
             return inp1
+        else:
+            print("Incorrect password.")
+            return login()
     else:
+        print("User not found.")
+        print("Please contact the admin to create an account.")
+        return login()
+        """
+
+        
+        uncomment this so users can create an account
         if input("User not found. Would you like to create an account? (y/n): ") == "y":
             addUser(input("Enter your username: "), input("Enter your password: "), None,)
             return login()
-        
-
-
-
+        """
