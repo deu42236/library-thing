@@ -4,8 +4,7 @@ import csv
 def addBook(name, author, ISBN, availability):
     with open('books.csv', 'a', newline='') as file:
         writer = csv.writer(file)
-        writer.writeheader()
-
+        writer.writerow([name, author, ISBN, availability])
 #add users
 def addUser(usernameName, password, bookBorrowedISBN):
     with open('users.csv', 'a', newline='') as file:
